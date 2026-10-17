@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mabar Game Community 🎮 | Cari Teman Mabar & Seru-Seruan Bareng</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // Custom Tailwind Configuration for Discord theme and neon colors
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        discord: {
+                            blurple: '#5865F2',
+                            green: '#57F287',
+                            yellow: '#FEE75C',
+                            fuchsia: '#EB459E',
+                            red: '#ED4245',
+                            dark: '#1E1F22',
+                            darker: '#111214',
+                            card: '#2B2D31'
+                        },
+                        neon: {
+                            cyan: '#00f3ff',
+                            purple: '#9d00ff',
+                            pink: '#ff007f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-blurple': '0 0 25px rgba(88, 101, 242, 0.5)',
+                        'neon-cyan': '0 0 25px rgba(0, 243, 255, 0.4)',
+                        'neon-purple': '0 0 25px rgba(157, 0, 255, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom CSS Animations and Glassmorphism Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111214;
+            color: #f6f6f7;
+            overflow-x: hidden;
+        }
+
+        .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Animated Gradient Background for Hero */
+        .hero-bg {
+            background: radial-gradient(circle at 50% 20%, rgba(88, 101, 242, 0.18) 0%, rgba(157, 0, 255, 0.1) 35%, rgba(17, 18, 20, 1) 70%);
+        }
+
+        /* Glassmorphism card effect */
+        .glass-card {
+            background: rgba(43, 45, 49, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(88, 101, 242, 0.4);
+        }
+
+        /* Glowing text gradient */
+        .text-gradient-discord {
+            background: linear-gradient(135deg, #5865F2 0%, #9d00ff 50%, #00f3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Pulse glow animation for CTA */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(88, 101, 242, 0.6), 0 0 40px rgba(88, 101, 242, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(88, 101, 242, 0.9), 0 0 60px rgba(0, 243, 255, 0.4);
+            }
+        }
+
+        .btn-glow {
+            animation: pulse-glow 3s infinite;
+        }
+
+        /* Floating background shapes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Scrollbar custom styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111214;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2B2D31;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5865F2;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-discord-blurple selection:text-white">
+
+    <!-- LEFT SIDEBAR OVERLAY & CONTAINER -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-50 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm"></div>
+
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-discord-darker border-r border-white/10 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl">
+        <!-- Sidebar Header -->
+        <div>
+            <div class="flex items-center justify-between p-5 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-discord-blurple flex items-center justify-center text-white text-lg font-bold">
+                        <i class="fa-solid fa-folder-tree"></i>
+                    </div>
+                    <span class="font-heading font-extrabold text-white text-sm tracking-wide">NAVIGATION</span>
+                </div>
+                <button id="close-sidebar-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="p-4 space-y-2">
+                <div class="px-3 py-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Halaman Utama</div>
+                <a href="mabar_game_community.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-discord-blurple/20 text-white font-semibold text-sm border border-discord-blurple/40 hover:bg-discord-blurple transition-all group">
+                    <i class="fa-solid fa-gamepad text-discord-blurple group-hover:text-white transition-colors"></i>
+                    <span>Mabar Game Community</span>
+                </a>
+
+                <div class="px-3 py-1 mt-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Project & Server</div>
+                <a href="minecraftseries/index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 font-medium text-sm transition-all group border border-transparent hover:border-white/10">
+                    <i class="fa-solid fa-cube text-discord-green group-hover:scale-110 transition-transform"></i>
+                    <span>Mabar Game Series</span>
+                </a>
+
+                <a href="smp/index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 font-medium text-sm transition-all group border border-transparent hover:border-white/10">
+                    <i class="fa-solid fa-users text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                    <span>Mabargame SMP</span>
+                </a>
+
+                <a href="hc/index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 font-medium text-sm transition-all group border border-transparent hover:border-white/10">
+                    <i class="fa-solid fa-skull text-discord-red group-hover:scale-110 transition-transform"></i>
+                    <span>Mabar Game Hardcore</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-white/10 bg-discord-dark/50">
+            <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 rounded-xl bg-discord-blurple hover:bg-opacity-90 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all">
+                <i class="fa-brands fa-discord text-base"></i>
+                <span>Join Server Discord</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 right-0 z-40 glass-card bg-discord-darker/80 border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Sidebar Toggle Button & Logo -->
+                <div class="flex items-center gap-3">
+                    <button id="open-sidebar-btn" class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-discord-blurple hover:border-discord-blurple transition-all flex items-center justify-center" title="Buka Sidebar Navigasi">
+                        <i class="fa-solid fa-bars-staggered text-lg"></i>
+                    </button>
+
+                    <a href="#" class="flex items-center gap-3 group">
+                        <div class="w-11 h-11 rounded-2xl bg-discord-blurple/20 border border-discord-blurple/50 flex items-center justify-center text-discord-blurple text-xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-discord-blurple group-hover:text-white shadow-neon-blurple">
+                            <i class="fa-solid font-bold fa-gamepad"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-heading font-extrabold text-lg sm:text-xl tracking-wider text-white">
+                                MABAR <span class="text-discord-blurple">GAME</span>
+                            </span>
+                            <span class="text-xs text-gray-400 -mt-1 font-medium tracking-widest uppercase">Community 🎮</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-gray-300 hover:text-discord-blurple transition-colors">Tentang Kami</a>
+                    <a href="#features" class="text-gray-300 hover:text-discord-blurple transition-colors">Keunggulan</a>
+                    <a href="#games" class="text-gray-300 hover:text-discord-blurple transition-colors">Game Utama</a>
+                    <a href="#stats" class="text-gray-300 hover:text-discord-blurple transition-colors">Statistik</a>
+                    <a href="#join" class="text-gray-300 hover:text-discord-blurple transition-colors">Komunitas</a>
+                </div>
+
+                <!-- CTA Join Button Top Nav -->
+                <div class="hidden sm:flex items-center">
+                    <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-discord-blurple hover:bg-opacity-90 text-white font-semibold text-sm flex items-center gap-2 transition-all transform hover:-translate-y-0.5 shadow-lg shadow-discord-blurple/30">
+                        <i class="fa-brands fa-discord text-lg"></i>
+                        <span>Join Discord</span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div class="md:hidden hidden bg-discord-dark border-b border-white/10 px-4 pt-2 pb-6 space-y-3" id="mobile-menu">
+            <a href="#about" class="block px-3 py-2 rounded-lg text-gray-300 hover:bg-discord-blurple/10 hover:text-white font-medium">Tentang Kami</a>
+            <a href="#features" class="block px-3 py-2 rounded-lg text-gray-300 hover:bg-discord-blurple/10 hover:text-white font-medium">Keunggulan</a>
+            <a href="#games" class="block px-3 py-2 rounded-lg text-gray-300 hover:bg-discord-blurple/10 hover:text-white font-medium">Game Utama</a>
+            <a href="#stats" class="block px-3 py-2 rounded-lg text-gray-300 hover:bg-discord-blurple/10 hover:text-white font-medium">Statistik</a>
+            <a href="#join" class="block px-3 py-2 rounded-lg text-gray-300 hover:bg-discord-blurple/10 hover:text-white font-medium">Komunitas</a>
+            <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="w-full mt-3 px-5 py-3 rounded-xl bg-discord-blurple text-white font-semibold text-center flex items-center justify-center gap-2">
+                <i class="fa-brands fa-discord text-xl"></i>
+                <span>Join Discord Sekarang</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <section class="relative min-h-screen pt-32 pb-20 flex items-center justify-center hero-bg overflow-hidden">
+        <!-- Decorative Ambient Light Orbs -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-discord-blurple/20 rounded-full blur-3xl pointer-events-none floating"></div>
+        <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-neon-purple/20 rounded-full blur-3xl pointer-events-none floating" style="animation-delay: -3s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <!-- Badge Status -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-discord-blurple/40 text-xs sm:text-sm font-medium text-discord-blurple mb-8 animate-bounce">
+                <span class="w-2.5 h-2.5 rounded-full bg-discord-green animate-ping"></span>
+                <span class="text-discord-green font-semibold">Komunitas Tongkrongan</span> • Mabar Santai & Seru!
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
+                MABAR GAME <br>
+                <span class="text-gradient-discord">COMMUNITY 🎮</span>
+            </h1>
+
+            <!-- Subheading / Tagline -->
+            <p class="max-w-2xl mx-auto text-gray-300 text-base sm:text-lg md:text-xl font-normal mb-10 leading-relaxed">
+                Tempat kumpul mabar anak-anak sekitar! Fokus utama main <strong class="text-white">Roblox & Minecraft</strong> bareng. Boleh toxic bercanda sewajarnya, yang penting mabar tetap asyik dan makin akrab!
+            </p>
+
+            <!-- Action CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-discord-blurple hover:bg-opacity-90 text-white font-bold text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 btn-glow">
+                    <i class="fa-brands fa-discord text-2xl"></i>
+                    <span>Bergabung dengan Discord</span>
+                </a>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-card hover:bg-white/10 text-white font-semibold text-lg flex items-center justify-center gap-2 transition-all">
+                    <span>Pelajari Lebih Lanjut</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+
+            <!-- Server Tags / Quick Info -->
+            <div class="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                    <i class="fa-solid fa-comments text-discord-yellow text-2xl"></i>
+                    <div>
+                        <div class="text-white font-bold text-sm">Toxic Sewajarnya</div>
+                        <div class="text-xs text-gray-400">Becandaan Khas Gamer</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                    <i class="fa-solid fa-[#00a2ff] fa-cube text-neon-cyan text-2xl"></i>
+                    <div>
+                        <div class="text-white font-bold text-sm">Roblox & Minecraft</div>
+                        <div class="text-xs text-gray-400">Game Utama Kami</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                    <i class="fa-solid fa-user-group text-discord-green text-2xl"></i>
+                    <div>
+                        <div class="text-white font-bold text-sm">Anak Tongkrongan</div>
+                        <div class="text-xs text-gray-400">Komunitas Sekitar</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                    <i class="fa-solid fa-headset text-neon-pink text-2xl"></i>
+                    <div>
+                        <div class="text-white font-bold text-sm">Voice Channel</div>
+                        <div class="text-xs text-gray-400">Siap Buat Mabar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. TENTANG KOMUNITAS (ABOUT US) -->
+    <section id="about" class="py-24 bg-discord-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left Visual Graphic -->
+                <div class="relative">
+                    <div class="relative z-10 p-2 glass-card rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80" alt="Gamers Playing Together" class="rounded-2xl w-full h-[380px] object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x600/2b2d31/ffffff?text=Gaming+Community';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-discord-darker via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl glass-card border border-white/10">
+                            <p class="text-sm font-semibold text-white">"Main game bareng temen tongkrongan selalu bikin kangen."</p>
+                            <span class="text-xs text-discord-blurple font-bold uppercase tracking-wider mt-1 block">— Mabar Game Community</span>
+                        </div>
+                    </div>
+                    <!-- Decorative back glow -->
+                    <div class="absolute -inset-2 bg-gradient-to-r from-discord-blurple to-neon-cyan rounded-3xl blur-2xl opacity-30 -z-10"></div>
+                </div>
+
+                <!-- Right Description Content -->
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-discord-blurple/10 border border-discord-blurple/30 text-discord-blurple font-semibold text-xs tracking-wider uppercase">
+                        <i class="fa-solid fa-heart"></i> Tempat Kumpul Sekitar
+                    </div>
+                    
+                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+                        Wadah Gamer Sekitar Buat Mabar Santai
+                    </h2>
+
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        <strong class="text-white">Mabar Game Community 🎮</strong> adalah server Discord kecil tempat kumpul dan mabar anak-anak sekitar. Di sini kita fokus utama buat main <strong class="text-white">Roblox</strong> dan <strong class="text-white">Minecraft</strong> bareng pas waktu senggang.
+                    </p>
+
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        Gak usah terlalu kaku! Boleh toxic bercanda sewajarnya khas gamers saat kalah atau lagi seru-seruan, asal tidak kelewatan dan tetap saling menghargai sesama teman mabar.
+                    </p>
+
+                    <!-- Features Checklist -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <div class="flex items-center gap-3 text-sm text-gray-200">
+                            <i class="fa-solid fa-circle-check text-discord-green"></i> Khusus Anak-Anak Sekitar
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-200">
+                            <i class="fa-solid fa-circle-check text-discord-green"></i> Toxic Bercanda Sewajarnya
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-200">
+                            <i class="fa-solid fa-circle-check text-discord-green"></i> Fokus Utama Roblox & Minecraft
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-200">
+                            <i class="fa-solid fa-circle-check text-discord-green"></i> Role & Voice Channel Mabar
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-discord-blurple font-bold hover:underline group text-lg">
+                            <span>Gabung & Nimbrung Sekarang</span>
+                            <i class="fa-solid fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. FITUR / KEUNGGULAN KOMUNITAS -->
+    <section id="features" class="py-24 bg-discord-darker relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">
+                    Suasana Di Server <span class="text-discord-blurple">Discord Kami</span>
+                </h2>
+                <p class="text-gray-400 text-base">
+                    Simpel, santai, dan fleksibel. Cocok buat kamu yang pengen cari teman mabar tanpa ribet.
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Feature 1 -->
+                <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-discord-blurple/20 text-discord-blurple flex items-center justify-center text-2xl mb-6 group-hover:bg-discord-blurple group-hover:text-white transition-all shadow-neon-blurple">
+                        <i class="fa-solid fa-microphone text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-2">Voice Channel Mabar</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Tersedia room voice untuk koordinasi mabar pas main Roblox, Minecraft, atau game seru lainnya.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-discord-yellow/20 text-discord-yellow flex items-center justify-center text-2xl mb-6 group-hover:bg-discord-yellow group-hover:text-black transition-all">
+                        <i class="fa-solid fa-face-laugh-squint"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-2">Toxic Sewajarnya</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Bebas bercanda dan salty tipis-tipis pas mabar. Asal saling paham kalau ini cuma hiburan & becandaan sesama teman!
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-neon-cyan/20 text-neon-cyan flex items-center justify-center text-2xl mb-6 group-hover:bg-neon-cyan group-hover:text-white transition-all shadow-neon-cyan">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-2">Satu Tongkrongan Game</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Server khusus anak sekitar biar makin akrab. Chat rame pas ada jam mabar bareng.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. GAME UTAMA SERVER (ROBLOX & MINECRAFT FOCUS) -->
+    <section id="games" class="py-24 bg-discord-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-discord-blurple/10 border border-discord-blurple/30 text-discord-blurple font-semibold text-xs tracking-wider uppercase mb-3">
+                        <i class="fa-solid fa-gamepad"></i> Main Games
+                    </div>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white">
+                        Game Utama Di Server
+                    </h2>
+                </div>
+                <p class="text-gray-400 text-sm max-w-md mt-4 md:mt-0">
+                    Ini dua game paling sering dan rutin kita mainkan bareng-bareng di Discord!
+                </p>
+            </div>
+
+            <!-- Games Grid (Roblox & Minecraft Prominent) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Game 1: Roblox -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-discord-blurple transition-all duration-300 border-2 border-neon-pink/30">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="https://4kwallpapers.com/images/walls/thumbs_3t/23593.jpg" alt="Roblox" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/2b2d31/ffffff?text=Roblox';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-discord-card via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-neon-pink text-white uppercase">Game Utama #1</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl font-bold text-white mb-2">Roblox</h3>
+                        <p class="text-gray-400 text-sm mb-4">Mabar Jujutsu Shenanigans, A Desert, game horror, grinding bareng, atau seru-seruan di private server!</p>
+                        <div class="flex items-center justify-between text-xs text-discord-blurple font-medium border-t border-white/5 pt-4">
+                            <span><i class="fa-solid fa-fire text-discord-yellow mr-1"></i> Paling Sering Dimaikan</span>
+                            <span>All Platforms</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2: Minecraft -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-discord-blurple transition-all duration-300 border-2 border-discord-green/30">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="https://staticg.sportskeeda.com/editor/2025/01/8827f-17376979472538-1920.jpg" alt="Minecraft" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/2b2d31/ffffff?text=Minecraft';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-discord-card via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-discord-green text-black uppercase">Game Utama #2</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl font-bold text-white mb-2">Minecraft</h3>
+                        <p class="text-gray-400 text-sm mb-4">Survival bareng, bikin world / SMP, mini games Bedwars, PvP santai, sampai pamer hasil build rumah!</p>
+                        <div class="flex items-center justify-between text-xs text-discord-blurple font-medium border-t border-white/5 pt-4">
+                            <span><i class="fa-solid fa-fire text-discord-yellow mr-1"></i> Rutin Mabar</span>
+                            <span>PC & PE / Mobile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 3: Game Tambahan / Santai -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-discord-blurple transition-all duration-300 flex flex-col justify-between border-dashed border-2 border-white/20">
+                    <div class="p-8 text-center flex flex-col items-center justify-center h-full my-auto">
+                        <div class="w-16 h-16 rounded-full bg-discord-blurple/20 text-discord-blurple flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-2">Game Lainnya</h3>
+                        <p class="text-gray-400 text-sm mb-6">Mobile Legends, Free Fire, Stumble Guys & Game Iseng Lainnya pas lagi bosen!</p>
+                        <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-discord-blurple text-white font-medium text-xs transition-colors">
+                            Ajak Mabar di Discord
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. STATISTIK KOMUNITAS -->
+    <section id="stats" class="py-20 bg-discord-darker border-y border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                
+                <!-- Stat 1 -->
+                <div class="p-6 rounded-2xl glass-card">
+                    <div class="text-3xl sm:text-5xl font-heading font-black text-discord-blurple mb-2 flex justify-center items-center">
+                        <span class="counter" data-target="30">0</span>+
+                    </div>
+                    <div class="text-gray-300 font-semibold text-sm sm:text-base">Member Sekitar</div>
+                    <div class="text-xs text-gray-500 mt-1">Anak-anak Tongkrongan</div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="p-6 rounded-2xl glass-card">
+                    <div class="text-3xl sm:text-5xl font-heading font-black text-neon-pink mb-2 flex justify-center items-center">
+                        <span class="counter" data-target="2">0</span>
+                    </div>
+                    <div class="text-gray-300 font-semibold text-sm sm:text-base">Game Favorit</div>
+                    <div class="text-xs text-gray-500 mt-1">Roblox & Minecraft</div>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="p-6 rounded-2xl glass-card">
+                    <div class="text-3xl sm:text-5xl font-heading font-black text-discord-yellow mb-2 flex justify-center items-center">
+                        <span class="counter" data-target="100">0</span>%
+                    </div>
+                    <div class="text-gray-300 font-semibold text-sm sm:text-base">Seru-Seruan</div>
+                    <div class="text-xs text-gray-500 mt-1">Gak Pakai Baper</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. DISCORD EMBED / WIDGET PREVIEW SECTION -->
+    <section id="join" class="py-24 bg-discord-dark relative overflow-hidden">
+        <!-- Ambient Glow Backing -->
+        <div class="absolute inset-0 bg-gradient-to-r from-discord-blurple/20 to-neon-purple/20 blur-3xl opacity-30 pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-card p-8 sm:p-12 rounded-3xl border border-discord-blurple/30 shadow-2xl relative overflow-hidden">
+                <!-- Background Discord Watermark Pattern -->
+                <i class="fa-brands fa-discord absolute -bottom-10 -right-10 text-[220px] text-discord-blurple/5 pointer-events-none"></i>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    
+                    <!-- Server Banner & Status -->
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-discord-green/20 text-discord-green font-bold text-xs uppercase tracking-wider">
+                            <span class="w-2 h-2 rounded-full bg-discord-green animate-pulse"></span> Server Terbuka Buat Anak Sekitar
+                        </div>
+
+                        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white">
+                            Gas Join Discord Mabar! 🚀
+                        </h2>
+
+                        <p class="text-gray-300 text-base leading-relaxed">
+                            Lagi bosen sendirian main Roblox atau Minecraft? Langsung aja masuk server Discord kita, tinggal masuk Voice Channel atau tag temen di chat buat mabar!
+                        </p>
+
+                        <!-- Highlights List -->
+                        <div class="flex flex-wrap gap-4 text-xs font-semibold text-gray-300">
+                            <span class="bg-discord-card px-3 py-1.5 rounded-lg border border-white/5"><i class="fa-solid fa-check text-discord-green mr-1"></i> Tempat Mabar Santai</span>
+                            <span class="bg-discord-card px-3 py-1.5 rounded-lg border border-white/5"><i class="fa-solid fa-check text-discord-green mr-1"></i> Toxic Bercanda OK</span>
+                            <span class="bg-discord-card px-3 py-1.5 rounded-lg border border-white/5"><i class="fa-solid fa-check text-discord-green mr-1"></i> Roblox & Minecraft</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct Fast Join Action Card -->
+                    <div class="bg-discord-darker p-6 rounded-2xl border border-white/10 text-center space-y-5">
+                        <div class="w-20 h-20 mx-auto rounded-3xl bg-discord-blurple flex items-center justify-center text-white text-4xl shadow-neon-blurple">
+                            <i class="fa-brands fa-discord"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-extrabold text-white text-lg">Mabar Game Community</h3>
+                            <p class="text-xs text-gray-400 mt-1">Official Discord Server</p>
+                        </div>
+
+                        <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl bg-discord-green hover:bg-opacity-90 text-discord-darker font-extrabold text-sm flex items-center justify-center gap-2 transition-all transform hover:scale-105 shadow-lg shadow-discord-green/20">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>JOIN SERVER DISCORD</span>
+                        </a>
+                        <p class="text-[11px] text-gray-500">Link: discord.gg/MSsHGKFmP2</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FOOTER -->
+    <footer class="bg-discord-darker border-t border-white/10 pt-16 pb-12 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                
+                <!-- Col 1: Brand -->
+                <div class="md:col-span-2 space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-discord-blurple flex items-center justify-center text-white text-xl font-bold">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <span class="font-heading font-extrabold text-xl text-white tracking-wider">
+                            MABAR <span class="text-discord-blurple">GAME</span>
+                        </span>
+                    </a>
+                    <p class="text-gray-400 text-sm max-w-sm leading-relaxed">
+                        Komunitas Discord mabar anak-anak sekitar. Fokus utama Roblox & Minecraft!
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div>
+                    <h4 class="font-heading font-bold text-white mb-4 uppercase text-xs tracking-widest">Navigasi Website</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#about" class="hover:text-discord-blurple transition-colors">Tentang Komunitas</a></li>
+                        <li><a href="#features" class="hover:text-discord-blurple transition-colors">Keunggulan Server</a></li>
+                        <li><a href="#games" class="hover:text-discord-blurple transition-colors">Game Utama</a></li>
+                        <li><a href="#stats" class="hover:text-discord-blurple transition-colors">Statistik Member</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Support & Link -->
+                <div>
+                    <h4 class="font-heading font-bold text-white mb-4 uppercase text-xs tracking-widest">Gabung Komunitas</h4>
+                    <ul class="space-y-2.5">
+                        <li>
+                            <a href="https://discord.gg/MSsHGKFmP2" target="_blank" rel="noopener noreferrer" class="text-discord-blurple font-semibold hover:underline flex items-center gap-2">
+                                <i class="fa-brands fa-discord"></i> Link Undangan Discord
+                            </a>
+                        </li>
+                        <li class="text-xs text-gray-500">Komunitas Anak Sekitar</li>
+                        <li class="text-xs text-gray-500">Roblox • Minecraft • & Games Lain</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright Bar -->
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+                <p>&copy; <span id="current-year"></span> Mabar Game Community 🎮.</p>
+                <p class="flex items-center gap-1">
+                    Made with <i class="fa-solid fa-gamepad text-discord-blurple"></i> for Local Gamers
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY & COUNTER ANIMATION -->
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Sidebar Toggle Logic
+        const openSidebarBtn = document.getElementById('open-sidebar-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                sidebarOverlay.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('opacity-0');
+            setTimeout(() => {
+                sidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        if (openSidebarBtn) openSidebarBtn.addEventListener('click', openSidebar);
+        if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+<!-- ... existing code -->
